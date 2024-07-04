@@ -1,0 +1,138 @@
+{
+    "world_db": {
+        "type": "file",
+        "file_type": "xml",
+        "path": "knowledge/world_db.xml",
+        "xml_root": "world_db"
+    },
+
+    "output": {
+        "output_type": "file",
+        "file_path": "output/task_outputDelivery.json",
+        "file_type": "json"
+    },
+
+    "location_types": ["Room"],
+
+    "type_mapping": [
+        {
+            "hddl_type": "room",
+            "ocl_type": "Room"
+        },
+        {
+            "hddl_type": "order",
+            "ocl_type": "Order"
+        }
+    ],
+
+    "var_mapping": [
+        {
+            "task_id": "AT1",
+            "map": [
+                {
+                    "gm_var": "kitchen",
+                    "hddl_var": "?rm"
+                },
+                {
+                    "gm_var": "order",
+                    "hddl_var": "?o"
+                }
+            ]
+        },
+        {
+            "task_id": "AT2",
+            "map": [
+                {
+                    "gm_var": "kitchen",
+                    "hddl_var": "?rm"
+                },
+                {
+                    "gm_var": "order",
+                    "hddl_var": "?o"
+                }
+            ]
+        },
+        {
+            "task_id": "AT3",
+            "map": [
+                {
+                    "gm_var": "kitchen",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT4",
+            "map": []
+        }
+    ],
+
+    "semantic_mapping": [
+        {
+            "type": "attribute",
+            "name": "delivered",
+            "relates_to": "Order",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "delivered",
+                "arg_sorts": ["order"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "pickedup",
+            "relates_to": "Order",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "pickedup",
+                "arg_sorts": ["order"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "target_room",
+            "relates_to": "Order",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "target_room",
+                "arg_sorts": ["order"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "kitchen",
+            "relates_to": "Room",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "kitchen",
+                "arg_sorts": ["room"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "at_kitchen",
+            "relates_to": "robot",
+            "belongs_to": "robots_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "at_kitchen",
+                "arg_sorts": ["robot"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "battery",
+            "relates_to": "robot",
+            "belongs_to": "robots_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "battery",
+                "arg_sorts": ["robot"]
+            }
+        }
+    ]
+}

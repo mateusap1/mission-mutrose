@@ -1,11 +1,14 @@
 (define (domain hospital))
     (:types order food room - object)
     (:predicates
-        (at ?r - robot ?rm - room)
-        (pickedmeal ?r - robot)
-        (deliveredmeal ?r - robot)
         (is_kitchen ?rm - room)
+        (picked_meal ?r - robot)
+        (delivered_meal ?r - robot)
+        (at ?r - robot ?rm - room)
+        (at_kitchen ?r - robot)
+        (battery ?r - robot)
         (delivered ?o - order)
+        (picked_up ?o - order)
     )
     (:capabilities pickmeal delivermeal)
 
@@ -18,19 +21,19 @@
             (is_kitchen ?rm)
         )
 		:ordered-subtasks (and
-			(wait-for-food ?r ?rm ?o)
+			(wait-for-foods ?r ?rm ?o)
 		)
 	)
-	(:action wait-for-food
+	(:action wait-for-foods
 		:parameters (?r - robot ?rm - room ?o - order)
         :required-capabilities (pickmeal)
 		:effect (and
-			(pickedmeal ?r)
+			(picked_meal ?r)
 		)
 	)
 
     (:task DeliverFood :parameters (?r - robot ?rm - room ?o - order))
-	(:method food-deliver
+	(:method foods-deliver
 		:parameters (?r - robot ?rm - room ?o - order)
 		:task (DeliverFood ?r ?rm ?o)
 		:ordered-subtasks (and
