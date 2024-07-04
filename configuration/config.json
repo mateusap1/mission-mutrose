@@ -32,10 +32,6 @@
                 {
                     "gm_var": "kitchen",
                     "hddl_var": "?rm"
-                },
-                {
-                    "gm_var": "order",
-                    "hddl_var": "?o"
                 }
             ]
         },
@@ -58,11 +54,24 @@
                 {
                     "gm_var": "kitchen",
                     "hddl_var": "?rm"
+                },
+                {
+                    "gm_var": "order",
+                    "hddl_var": "?o"
                 }
             ]
         },
         {
             "task_id": "AT4",
+            "map": [
+                {
+                    "gm_var": "kitchen",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT5",
             "map": []
         }
     ],
