@@ -46,6 +46,28 @@
 		)
 	)
 
+    (:task GoToKitchen :parameters (?r - robot ?rm - room))
+	(:method goto-kitchen
+		:parameters (?r - robot ?rm - room)
+		:task (GoToKitchen ?r ?rm)
+		:ordered-subtasks (and
+            (navto ?r ?rm)
+		)
+	)
+
+    (:task RechargeBattery :parameters (?r - robot))
+	(:method battery-recharge
+		:parameters (?r - robot)
+		:task (RechargeBattery ?r)
+		:precondition ()
+		:ordered-subtasks (and
+			(recharge-battery ?r)
+		)
+	)
+	(:action recharge-battery
+		:parameters (?r - robot)
+	)
+
     (:action navto
 		:parameters (?r - robot ?rm - room)
 	)
