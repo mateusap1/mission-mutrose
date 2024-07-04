@@ -3,10 +3,11 @@
     (:predicates
         (at ?r - robot ?rm - room)
         (pickedmeal ?r - robot)
+        (deliveredmeal ?r - robot)
         (is_kitchen ?rm - room)
         (delivered ?o - order)
     )
-    (:capabilities pickmeal)
+    (:capabilities pickmeal delivermeal)
 
     (:task PickupFood :parameters (?r - robot ?rm - room ?o - order))
 	(:method food-pickup
@@ -26,4 +27,25 @@
 		:effect (and
 			(pickedmeal ?r)
 		)
+	)
+
+    (:task DeliverFood :parameters (?r - robot ?rm - room ?o - order))
+	(:method food-deliver
+		:parameters (?r - robot ?rm - room ?o - order)
+		:task (DeliverFood ?r ?rm ?o)
+		:ordered-subtasks (and
+            (navto ?r ?rm)
+			(wait-for-delivery ?r ?rm ?o)
+		)
+	)
+	(:action wait-for-delivery
+		:parameters (?r - robot ?rm - room ?o - order)
+        :required-capabilities (delivermeal)
+		:effect (and
+			(deliveredmeal ?r)
+		)
+	)
+
+    (:action navto
+		:parameters (?r - robot ?rm - room)
 	)
