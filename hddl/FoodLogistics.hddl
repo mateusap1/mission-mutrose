@@ -21,7 +21,7 @@
             (at ?r ?rm)
             (kitchen ?rm)
         )
-		:ordered-subtasks (and
+		:subtasks (and
 			(wait-for-foods ?r ?rm ?o)
 		)
 	)
@@ -54,7 +54,7 @@
 	(:method goto-kitchen
 		:parameters (?r - robot ?rm - room)
 		:task (GoToKitchen ?r ?rm)
-		:ordered-subtasks (and
+		:subtasks (and
             (navto ?r ?rm)
 		)
 	)
@@ -64,7 +64,7 @@
 		:parameters (?r - robot)
 		:task (RechargeBattery ?r)
 		:precondition ()
-		:ordered-subtasks (and
+		:subtasks (and
 			(recharge-battery ?r)
 		)
 	)

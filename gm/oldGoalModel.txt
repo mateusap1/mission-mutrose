@@ -4,8 +4,8 @@
       "id": "794a0cd4-127d-45c0-968a-5977883a6984",
       "text": "M1: Food Logistics",
       "type": "istar.Actor",
-      "x": 108,
-      "y": 190,
+      "x": 40,
+      "y": 187,
       "customProperties": {
         "Description": ""
       },
@@ -14,8 +14,8 @@
           "id": "a38fd2be-d619-41d0-9854-f2a5131f061f",
           "text": "G2: Deliver Food To Patients [G3;G4;G5;G7]",
           "type": "istar.Goal",
-          "x": 332,
-          "y": 240,
+          "x": 394,
+          "y": 237,
           "customProperties": {
             "Description": ""
           }
@@ -24,104 +24,107 @@
           "id": "d5c052cc-9423-428e-973f-d204b80633f9",
           "text": "G3: Fetch Delivery Info",
           "type": "istar.Goal",
-          "x": 108,
-          "y": 317,
+          "x": 134,
+          "y": 244,
           "customProperties": {
             "Description": "",
             "GoalType": "Query",
             "Controls": "orders : Sequence(Order)",
-            "QueriedProperty": "world_db->select(order : Order | !order.delivered)"
+            "QueriedProperty": "world_db->select(order:Order | !order.delivered)"
           }
         },
         {
           "id": "68fa9fe7-afff-4d51-95e7-52bdf080507c",
-          "text": "G5: Pickup Foods From Orders",
+          "text": "G6: Pickup Foods From Orders",
           "type": "istar.Goal",
-          "x": 353,
-          "y": 313,
+          "x": 415,
+          "y": 310,
           "customProperties": {
             "Description": "",
             "GoalType": "Achieve",
-            "AchieveCondition": "orders->forAll(order | order.loaded)",
-            "Monitors": "orders : Sequence(Order)",
-            "Controls": "order : Order"
+            "AchieveCondition": "orders->forAll(order|order.pickedup)",
+            "Monitors": "orders:Sequence(Order),kitchen:Room",
+            "Controls": "order:Order,kitchen:Room"
           }
         },
         {
           "id": "b379e663-bd8c-4680-8d63-df43b3db34a2",
-          "text": "G7: Deliver Food To Patients",
+          "text": "G8: Deliver Food To Patients",
           "type": "istar.Goal",
-          "x": 480,
-          "y": 315,
+          "x": 542,
+          "y": 311,
           "customProperties": {
             "Description": "",
             "GoalType": "Achieve",
             "AchieveCondition": "orders->forAll(order | order.delivered)",
-            "Controls": "order : Order",
-            "Monitors": "orders : Sequence(Order)"
+            "Controls": "order:Order",
+            "Monitors": "orders:Sequence(Order)"
           }
         },
         {
           "id": "2f142e8f-ba07-4315-b2f7-5700300f45d4",
-          "text": "G9: Deliver Food To Patient",
+          "text": "G11: Deliver Food To Patient",
           "type": "istar.Goal",
-          "x": 534,
-          "y": 398,
+          "x": 677,
+          "y": 391,
           "customProperties": {
             "Description": "",
-            "Monitors": "order : Order"
+            "Monitors": "order:Order,target_room:Room"
           }
         },
         {
           "id": "d97c049a-6c68-4aab-ada3-23b05cc6e664",
-          "text": "AT2: Deliver Food",
+          "text": "AT2: DeliverFood",
           "type": "istar.Task",
-          "x": 540,
-          "y": 457,
+          "x": 682,
+          "y": 454,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "target_room",
+            "Params": "target_room,order"
           }
         },
         {
           "id": "eaa64a12-fe51-419a-8e8a-1557a335928a",
-          "text": "G10: Go To Kitchen If Not There [FALLBACK(G10,G12)]",
+          "text": "G12: Go To Kitchen If Not There [FALLBACK(G10,G12)]",
           "type": "istar.Goal",
-          "x": 764,
-          "y": 237,
+          "x": 817,
+          "y": 209,
           "customProperties": {
             "Description": ""
           }
         },
         {
           "id": "8c22d57f-df1b-45bc-b834-77a8a6e38f3a",
-          "text": "G11: Assert Is At Kitchen",
+          "text": "G13: Assert Is At Kitchen",
           "type": "istar.Goal",
-          "x": 635,
-          "y": 304,
+          "x": 673,
+          "y": 259,
           "customProperties": {
             "Description": "",
             "GoalType": "Perform",
-            "Condition": "assert condition \"robot.at_kitchen\""
+            "CreationCondition": "assert condition \"robot.at_kitchen\""
           }
         },
         {
           "id": "f860f56d-ea98-4db7-bbb9-e45492a88156",
-          "text": "G13: Go To Kitchen",
+          "text": "G18: Go To Kitchen",
           "type": "istar.Goal",
-          "x": 815,
-          "y": 340,
+          "x": 877,
+          "y": 337,
           "customProperties": {
             "Description": "",
             "GoalType": "Achieve",
-            "AchieveCondition": "robot.at_kitchen"
+            "AchieveCondition": "robot.at_kitchen",
+            "Monitors": "kitchen:Room"
           }
         },
         {
           "id": "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb",
           "text": "G1: Deliver Food To Patients Or Go Back [FALLBACK(G2,G10)]",
           "type": "istar.Goal",
-          "x": 527,
-          "y": 198,
+          "x": 589,
+          "y": 195,
           "customProperties": {
             "Description": ""
           }
@@ -130,85 +133,131 @@
           "id": "b774a536-f1fc-4057-97fd-f99dfdf36956",
           "text": "AT1: PickupFood",
           "type": "istar.Task",
-          "x": 302,
-          "y": 429,
+          "x": 364,
+          "y": 426,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "kitchen",
+            "Params": "kitchen,order"
           }
         },
         {
           "id": "64873419-2e05-48ba-95b5-f2c1d790ea94",
-          "text": "AT3: Go To Kitchen",
+          "text": "AT3: GoToKitchen",
           "type": "istar.Task",
-          "x": 812,
-          "y": 399,
+          "x": 874,
+          "y": 396,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "kitchen",
+            "Params": "kitchen"
           }
         },
         {
           "id": "8c292772-5896-418a-b809-a0f10a0a2746",
-          "text": "G6: Pickup Food",
+          "text": "G7: Pickup Food",
           "type": "istar.Goal",
-          "x": 303,
-          "y": 376,
+          "x": 366,
+          "y": 372,
           "customProperties": {
             "Description": "",
-            "Monitors": "order : Order"
+            "Monitors": "order:Order,kitchen:Room"
           }
         },
         {
           "id": "2a9e588e-08ec-4695-9007-0bdf80214d73",
-          "text": "G8: Check Battery",
+          "text": "G9: Check Battery",
           "type": "istar.Goal",
-          "x": 423,
-          "y": 401,
+          "x": 458,
+          "y": 394,
           "customProperties": {
             "Description": "",
             "GoalType": "Perform",
-            "Condition": "assert condition \"robot.battery > 15\""
+            "CreationCondition": "assert condition \"robot.battery > 10\""
           }
         },
         {
           "id": "42f3cf66-983f-44c8-a48f-c22b7b06945d",
-          "text": "G4: Assert Is At Kitchen",
+          "text": "G5: Assert Is At Kitchen",
           "type": "istar.Goal",
-          "x": 228,
-          "y": 316,
+          "x": 290,
+          "y": 313,
           "customProperties": {
             "Description": "",
             "GoalType": "Perform",
-            "Condition": "assert condition \"robot.at_kitchen\""
+            "CreationCondition": "assert condition \"robot.at_kitchen\""
           }
         },
         {
           "id": "60e83775-b8b0-4ee2-94b4-bfcdd6b1182e",
-          "text": "G14: Recharge Battery",
+          "text": "G17: Recharge Battery",
           "type": "istar.Goal",
-          "x": 929,
-          "y": 340,
+          "x": 992,
+          "y": 336,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Monitors": "kitchen:Room"
           }
         },
         {
           "id": "4c346095-dd55-440a-8d17-7bd0bd040bb1",
           "text": "AT4: Recharge Battery",
           "type": "istar.Task",
-          "x": 928,
-          "y": 400,
+          "x": 990,
+          "y": 397,
+          "customProperties": {
+            "Description": "",
+            "Location": "kitchen"
+          }
+        },
+        {
+          "id": "9b8391c9-6a1f-4923-86b6-d1b03404cc82",
+          "text": "G14: Restart Position [G13;G14]",
+          "type": "istar.Goal",
+          "x": 876,
+          "y": 269,
           "customProperties": {
             "Description": ""
           }
         },
         {
-          "id": "9b8391c9-6a1f-4923-86b6-d1b03404cc82",
-          "text": "G12: Restart Position [G13;G14]",
+          "id": "287d0a58-548c-46eb-920e-1f2eb52348e1",
+          "text": "G15: Fetch Kitchen Location",
           "type": "istar.Goal",
-          "x": 877,
-          "y": 288,
+          "x": 750,
+          "y": 325,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "kitchen:Room",
+            "QueriedProperty": "world_db->select(kitchen:Room|kitchen.kitchen)"
+          }
+        },
+        {
+          "id": "667e0973-f23d-4482-a168-f9c8a2fa7d4d",
+          "text": "G10: Fetch Target Room",
+          "type": "istar.Goal",
+          "x": 567,
+          "y": 394,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "target_room:Room",
+            "QueriedProperty": "world_db->select(target_room:Room|target_room.name=order.target_room)",
+            "Monitors": "order:Order"
+          }
+        },
+        {
+          "id": "0660cc6f-dcaa-4de1-a897-bc331f06018a",
+          "text": "G4: Fetch Kitchen Location",
+          "type": "istar.Goal",
+          "x": 176,
+          "y": 291,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "kitchen:Room",
+            "QueriedProperty": "world_db->select(kitchen:Room|kitchen.kitchen)"
           }
         }
       ]
@@ -318,6 +367,24 @@
       "type": "istar.AndRefinementLink",
       "source": "60e83775-b8b0-4ee2-94b4-bfcdd6b1182e",
       "target": "9b8391c9-6a1f-4923-86b6-d1b03404cc82"
+    },
+    {
+      "id": "4ce43d64-e7ef-4436-9534-6f30fdf2b088",
+      "type": "istar.AndRefinementLink",
+      "source": "287d0a58-548c-46eb-920e-1f2eb52348e1",
+      "target": "9b8391c9-6a1f-4923-86b6-d1b03404cc82"
+    },
+    {
+      "id": "afe9f172-57da-4d4c-b670-e7481a581df4",
+      "type": "istar.AndRefinementLink",
+      "source": "667e0973-f23d-4482-a168-f9c8a2fa7d4d",
+      "target": "b379e663-bd8c-4680-8d63-df43b3db34a2"
+    },
+    {
+      "id": "fdbe46c5-dccc-4492-af64-0a3afb54a06f",
+      "type": "istar.AndRefinementLink",
+      "source": "0660cc6f-dcaa-4de1-a897-bc331f06018a",
+      "target": "a38fd2be-d619-41d0-9854-f2a5131f061f"
     }
   ],
   "display": {
@@ -348,13 +415,17 @@
     "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb": {
       "width": 158.203125,
       "height": 52.5078125
+    },
+    "287d0a58-548c-46eb-920e-1f2eb52348e1": {
+      "width": 103.5,
+      "height": 49.5
     }
   },
   "tool": "pistar.2.1.0",
   "istar": "2.0",
-  "saveDate": "Thu, 04 Jul 2024 20:36:23 GMT",
+  "saveDate": "Thu, 04 Jul 2024 21:16:59 GMT",
   "diagram": {
-    "width": 1126,
+    "width": 1186,
     "height": 700,
     "customProperties": {
       "Description": ""
