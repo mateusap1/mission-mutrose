@@ -1,0 +1,297 @@
+{
+  "actors": [
+    {
+      "id": "794a0cd4-127d-45c0-968a-5977883a6984",
+      "text": "M1: Food Logistics",
+      "type": "istar.Actor",
+      "x": 260,
+      "y": 186,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "a38fd2be-d619-41d0-9854-f2a5131f061f",
+          "text": "G2: Deliver Food To Pacients [G3;G4;G6]",
+          "type": "istar.Goal",
+          "x": 434,
+          "y": 237,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d5c052cc-9423-428e-973f-d204b80633f9",
+          "text": "G3: Fetch Delivery Info",
+          "type": "istar.Goal",
+          "x": 322,
+          "y": 312,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "orders : Sequence(Order)",
+            "QueriedProperty": "world_db->select(order : Order | !order.delivered)"
+          }
+        },
+        {
+          "id": "68fa9fe7-afff-4d51-95e7-52bdf080507c",
+          "text": "G4: Acquire Foods From Orders",
+          "type": "istar.Goal",
+          "x": 456,
+          "y": 309,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Achieve",
+            "AchieveCondition": "orders->forAll(order | order.loaded)",
+            "Monitors": "orders : Sequence(Order)",
+            "Controls": "order : Order"
+          }
+        },
+        {
+          "id": "b379e663-bd8c-4680-8d63-df43b3db34a2",
+          "text": "G6: Deliver Food To Patients",
+          "type": "istar.Goal",
+          "x": 582,
+          "y": 311,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Achieve",
+            "AchieveCondition": "orders->forAll(order | order.delivered)",
+            "Controls": "order : Order",
+            "Monitors": "orders : Sequence(Order)"
+          }
+        },
+        {
+          "id": "2f142e8f-ba07-4315-b2f7-5700300f45d4",
+          "text": "G8: Deliver Food To Patient",
+          "type": "istar.Goal",
+          "x": 637,
+          "y": 394,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "order : Order"
+          }
+        },
+        {
+          "id": "d97c049a-6c68-4aab-ada3-23b05cc6e664",
+          "text": "AT2: Deliver Food",
+          "type": "istar.Task",
+          "x": 642,
+          "y": 453,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "eaa64a12-fe51-419a-8e8a-1557a335928a",
+          "text": "G9: Go To Kitchen If Not There [FALLBACK(G10,G11)]",
+          "type": "istar.Goal",
+          "x": 799,
+          "y": 240,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "8c22d57f-df1b-45bc-b834-77a8a6e38f3a",
+          "text": "G10: Assert Is Not At Kitchen",
+          "type": "istar.Goal",
+          "x": 735,
+          "y": 303,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Perform",
+            "Condition": "assert condition \"!robot.at_kitchen\""
+          }
+        },
+        {
+          "id": "f860f56d-ea98-4db7-bbb9-e45492a88156",
+          "text": "G11: Go To Kitchen",
+          "type": "istar.Goal",
+          "x": 901,
+          "y": 304,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Achieve",
+            "AchieveCondition": "robot.at_kitchen"
+          }
+        },
+        {
+          "id": "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb",
+          "text": "G1: Deliver Food To Patients Or Go Back [FALLBACK(G2,G9)]",
+          "type": "istar.Goal",
+          "x": 610,
+          "y": 186,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "b774a536-f1fc-4057-97fd-f99dfdf36956",
+          "text": "AT1: Acquire Food",
+          "type": "istar.Task",
+          "x": 405,
+          "y": 426,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "64873419-2e05-48ba-95b5-f2c1d790ea94",
+          "text": "AT3: Go To Kitchen",
+          "type": "istar.Task",
+          "x": 899,
+          "y": 361,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "8c292772-5896-418a-b809-a0f10a0a2746",
+          "text": "G5: Acquire Food",
+          "type": "istar.Goal",
+          "x": 405,
+          "y": 372,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "order : Order"
+          }
+        },
+        {
+          "id": "2a9e588e-08ec-4695-9007-0bdf80214d73",
+          "text": "G7: Check Battery",
+          "type": "istar.Goal",
+          "x": 525,
+          "y": 398,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Perform",
+            "Condition": "assert condition \"robot.battery > 15\""
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [],
+  "links": [
+    {
+      "id": "6e809730-44ad-4669-bb3b-7fbe2efddffd",
+      "type": "istar.AndRefinementLink",
+      "source": "a38fd2be-d619-41d0-9854-f2a5131f061f",
+      "target": "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb"
+    },
+    {
+      "id": "19d52438-415b-4de8-854d-7c7d844accf5",
+      "type": "istar.AndRefinementLink",
+      "source": "eaa64a12-fe51-419a-8e8a-1557a335928a",
+      "target": "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb"
+    },
+    {
+      "id": "d70f4e5f-23de-4d1e-bbc8-c7a0de322fdd",
+      "type": "istar.AndRefinementLink",
+      "source": "8c22d57f-df1b-45bc-b834-77a8a6e38f3a",
+      "target": "eaa64a12-fe51-419a-8e8a-1557a335928a"
+    },
+    {
+      "id": "4cf8fd35-1f1d-4a3a-b1cf-99296d863434",
+      "type": "istar.AndRefinementLink",
+      "source": "f860f56d-ea98-4db7-bbb9-e45492a88156",
+      "target": "eaa64a12-fe51-419a-8e8a-1557a335928a"
+    },
+    {
+      "id": "9501029a-1117-4e63-9b95-abe7b6ae37ac",
+      "type": "istar.AndRefinementLink",
+      "source": "d5c052cc-9423-428e-973f-d204b80633f9",
+      "target": "a38fd2be-d619-41d0-9854-f2a5131f061f"
+    },
+    {
+      "id": "fd6b564e-dbed-49dc-8a28-e746df4bd168",
+      "type": "istar.AndRefinementLink",
+      "source": "68fa9fe7-afff-4d51-95e7-52bdf080507c",
+      "target": "a38fd2be-d619-41d0-9854-f2a5131f061f"
+    },
+    {
+      "id": "201bc05d-7c10-4a6e-97b3-0edb9868aba2",
+      "type": "istar.AndRefinementLink",
+      "source": "b379e663-bd8c-4680-8d63-df43b3db34a2",
+      "target": "a38fd2be-d619-41d0-9854-f2a5131f061f"
+    },
+    {
+      "id": "1c4ca838-f664-408b-87d9-40800454b0c7",
+      "type": "istar.AndRefinementLink",
+      "source": "2f142e8f-ba07-4315-b2f7-5700300f45d4",
+      "target": "b379e663-bd8c-4680-8d63-df43b3db34a2"
+    },
+    {
+      "id": "de0df263-22e4-4beb-a754-84ddfe34939f",
+      "type": "istar.AndRefinementLink",
+      "source": "d97c049a-6c68-4aab-ada3-23b05cc6e664",
+      "target": "2f142e8f-ba07-4315-b2f7-5700300f45d4"
+    },
+    {
+      "id": "6bd01cb6-5169-4bc4-b491-66fda99febc3",
+      "type": "istar.AndRefinementLink",
+      "source": "64873419-2e05-48ba-95b5-f2c1d790ea94",
+      "target": "f860f56d-ea98-4db7-bbb9-e45492a88156"
+    },
+    {
+      "id": "882a5678-c79c-4377-90b0-ae578e45e87a",
+      "type": "istar.AndRefinementLink",
+      "source": "8c292772-5896-418a-b809-a0f10a0a2746",
+      "target": "68fa9fe7-afff-4d51-95e7-52bdf080507c"
+    },
+    {
+      "id": "a0ec1da1-561b-4b3f-961c-54a3294fcb51",
+      "type": "istar.AndRefinementLink",
+      "source": "b774a536-f1fc-4057-97fd-f99dfdf36956",
+      "target": "8c292772-5896-418a-b809-a0f10a0a2746"
+    },
+    {
+      "id": "dbba9d0a-0a98-43b7-8923-f73041b9f4f8",
+      "type": "istar.AndRefinementLink",
+      "source": "2a9e588e-08ec-4695-9007-0bdf80214d73",
+      "target": "b379e663-bd8c-4680-8d63-df43b3db34a2"
+    }
+  ],
+  "display": {
+    "a38fd2be-d619-41d0-9854-f2a5131f061f": {
+      "width": 140.203125,
+      "height": 43.5078125
+    },
+    "68fa9fe7-afff-4d51-95e7-52bdf080507c": {
+      "width": 94.203125,
+      "height": 45.109375
+    },
+    "b379e663-bd8c-4680-8d63-df43b3db34a2": {
+      "width": 115.203125,
+      "height": 37.5078125
+    },
+    "2f142e8f-ba07-4315-b2f7-5700300f45d4": {
+      "width": 109.203125,
+      "height": 38.5078125
+    },
+    "eaa64a12-fe51-419a-8e8a-1557a335928a": {
+      "width": 151.203125,
+      "height": 39.5078125
+    },
+    "8c22d57f-df1b-45bc-b834-77a8a6e38f3a": {
+      "width": 117.203125,
+      "height": 40.5078125
+    },
+    "a335c0f5-dbf6-4f09-88bc-cfd4e57ab8fb": {
+      "width": 158.203125,
+      "height": 52.5078125
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Thu, 04 Jul 2024 01:18:12 GMT",
+  "diagram": {
+    "width": 1041,
+    "height": 700,
+    "customProperties": {
+      "Description": ""
+    }
+  }
+}

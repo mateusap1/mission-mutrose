@@ -1,0 +1,36 @@
+<world_db>
+    <Order>
+        <has_delivered>False</has_delivered>
+        <requested_foods>
+            <Food><name>Pasta</name></Food>
+            <Food><name>Orange Juice</name></Food>
+        </requested_foods>
+        <target_room>Room 1</target_room>
+    </Order>
+    <Order>
+        <has_delivered>True</has_delivered>
+        <requested_foods>
+            <Food><name>Rice</name></Food>
+            <Food><name>Beans</name></Food>
+            <Food><name>Meat</name></Food>
+        </requested_foods>
+        <target_room>Room 2</target_room>
+    </Order>
+    <Order>
+        <has_delivered>False</has_delivered>
+        <requested_foods>
+            <Food><name>Green Tea</name></Food>
+            <Food><name>Waffles</name></Food>
+        </requested_foods>
+        <target_room>Room 3</target_room>
+    </Order>
+    <Room>
+        <name>Room 1</name>
+    </Room>
+    <Room>
+        <name>Room 2</name>
+    </Room>
+    <Room>
+        <name>Room 3</name>
+    </Room>
+</world_db>
