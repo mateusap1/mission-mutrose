@@ -8,7 +8,7 @@
 
     "output": {
         "output_type": "file",
-        "file_path": "output/task_outputDelivery.json",
+        "file_path": "output/task_output.json",
         "file_type": "json"
     },
 
@@ -30,8 +30,12 @@
             "task_id": "AT1",
             "map": [
                 {
-                    "gm_var": "kitchen",
+                    "gm_var": "kitroom",
                     "hddl_var": "?rm"
+                },
+                {
+                    "gm_var": "order",
+                    "hddl_var": "?o"
                 }
             ]
         },
@@ -39,7 +43,7 @@
             "task_id": "AT2",
             "map": [
                 {
-                    "gm_var": "kitchen",
+                    "gm_var": "kitroom",
                     "hddl_var": "?rm"
                 },
                 {
@@ -50,28 +54,6 @@
         },
         {
             "task_id": "AT3",
-            "map": [
-                {
-                    "gm_var": "kitchen",
-                    "hddl_var": "?rm"
-                },
-                {
-                    "gm_var": "order",
-                    "hddl_var": "?o"
-                }
-            ]
-        },
-        {
-            "task_id": "AT4",
-            "map": [
-                {
-                    "gm_var": "kitchen",
-                    "hddl_var": "?rm"
-                }
-            ]
-        },
-        {
-            "task_id": "AT5",
             "map": []
         }
     ],
@@ -112,23 +94,12 @@
         },
         {
             "type": "attribute",
-            "name": "kitchen",
-            "relates_to": "Room",
-            "belongs_to": "world_db",
-            "mapped_type": "predicate",
-            "map": {
-                "pred": "kitchen",
-                "arg_sorts": ["room"]
-            }
-        },
-        {
-            "type": "attribute",
-            "name": "at_kitchen",
+            "name": "atkitchen",
             "relates_to": "robot",
             "belongs_to": "robots_db",
             "mapped_type": "predicate",
             "map": {
-                "pred": "at_kitchen",
+                "pred": "atkitchen",
                 "arg_sorts": ["robot"]
             }
         },

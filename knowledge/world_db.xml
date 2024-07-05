@@ -16,18 +16,14 @@
     </Order>
     <Room>
         <name>Room 1</name>
-        <kitchen>False</kitchen>
     </Room>
     <Room>
         <name>Room 2</name>
-        <kitchen>False</kitchen>
     </Room>
     <Room>
         <name>Room 3</name>
-        <kitchen>False</kitchen>
     </Room>
     <Room>
         <name>Kitchen</name>
-        <kitchen>True</kitchen>
     </Room>
 </world_db>
