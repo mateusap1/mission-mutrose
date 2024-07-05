@@ -83,7 +83,7 @@
           "customProperties": {
             "Description": "",
             "GoalType": "Perform",
-            "Monitors": "kitchen:Room"
+            "Monitors": "kitchen : Room"
           }
         },
         {
@@ -93,7 +93,8 @@
           "x": 479,
           "y": 40,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Group": "False"
           }
         },
         {
@@ -210,9 +211,8 @@
           "y": 289,
           "customProperties": {
             "Description": "",
-            "GoalType": "",
-            "AchieveCondition": "",
-            "Monitors": ""
+            "GoalType": "Perform",
+            "Monitors": "kitchen:Room"
           }
         },
         {
@@ -242,7 +242,9 @@
           "x": 839,
           "y": 349,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "kitchen",
+            "Params": "kitchen"
           }
         },
         {
